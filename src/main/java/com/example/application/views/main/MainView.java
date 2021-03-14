@@ -7,11 +7,15 @@ import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
 
-@Route(value = "" )
+import java.awt.*;
+
+@Route(value = "")
 public class MainView extends VerticalLayout {
 
+    TextField textField = new TextField();
     Grid<User> userGrid = new Grid(User.class);
 
     HorizontalLayout horizontalLayout = new HorizontalLayout();
@@ -25,14 +29,24 @@ public class MainView extends VerticalLayout {
         //setSizeFull();
         //Config the layout here, add or remove columns
         gridConfig();
+        //Setup the search function
+        searchSetup();
         //Add grid to the layout
         add(new H1("Hello Vaadin"));
         add(horizontalLayout);
         horizontalLayoutConfig();
+        //Adding the text filter for enable search on webpage
+        add(textField);
         add(userGrid);
+
         //Populate grid with elements
         populateGrid();
 
+    }
+
+    private void searchSetup() {
+        textField.setPlaceholder("Search...");
+        textField.setClearButtonVisible(true);
     }
 
     private void horizontalLayoutConfig() {
